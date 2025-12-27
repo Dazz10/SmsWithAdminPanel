@@ -5,8 +5,7 @@ import java.util.Scanner;
 
 public class StudentUI {
 
-    public static void main(String[] args) {
-
+    public void StudentUI() {
         String url = "jdbc:mysql://localhost:3306/student_db?serverTimezone=UTC";
         String user = "root";
         String pass = "123456";
@@ -56,7 +55,7 @@ public class StudentUI {
                     try (Connection connection = DriverManager.getConnection(url, user, pass)) {
                         System.out.println("Connected to database.");
 
-                       viewAllStudents(connection);
+                        viewAllStudents(connection);
 
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -101,7 +100,6 @@ public class StudentUI {
         }
 
         scanner.close();
-
     }
 
     public static void insertStudent(Connection connection, String name,int roll_no, String department,  String email, int phone, int marks) {

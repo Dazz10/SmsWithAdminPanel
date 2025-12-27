@@ -21,6 +21,8 @@ public class AdminLoginUI {
 
         if(Objects.equals(usr, username) && Objects.equals(pass, pas)) {
             System.out.println("Welcome to SMS");
+            StudentUI studentUI = new StudentUI();
+            studentUI.StudentUI();
         } else  {
             System.out.println("Invalid credentials, please try again");
         }
