@@ -32,6 +32,7 @@ public class StudentUI {
                     String name = scanner.nextLine();
                     System.out.print("Enter roll no: ");
                     int roll_no = scanner.nextInt();
+                    scanner.nextLine();
                     System.out.print("Enter department: ");
                     String department = scanner.nextLine();
                     System.out.print("Enter email: ");
@@ -62,18 +63,33 @@ public class StudentUI {
                     }
                     break;
                 case 3:
-                    System.out.print("Enter student ID to update: ");
-                    int idToUpdate = scanner.nextInt();
-                    scanner.nextLine();
+                    System.out.print("Enter student name update: ");
+                    name = scanner.nextLine();
                     System.out.print("Enter new email: ");
                     String newEmail = scanner.nextLine();
                     // Call updateStudentEmail method here
+                    try (Connection connection = DriverManager.getConnection(url, user, pass)) {
+                        System.out.println("Connected to database.");
+
+                        updateStudent(connection, newEmail, name);
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case 4:
                     System.out.print("Enter student ID to delete: ");
                     int idToDelete = scanner.nextInt();
                     scanner.nextLine();
                     // Call deleteStudent method here
+                    try (Connection connection = DriverManager.getConnection(url, user, pass)) {
+                        System.out.println("Connected to database.");
+
+                        deleteStudent(connection, idToDelete);
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case 5:
                     running = false;
@@ -132,5 +148,31 @@ public class StudentUI {
             e.printStackTrace();
         }
     }
+
+    public static void updateStudent (Connection conn, String email, String name) {
+        String updateSQL = "UPDATE students SET email = ? WHERE name = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(updateSQL)) {
+            pstmt.setString(1, email);
+            pstmt.setString(2, name);
+            pstmt.executeUpdate();
+            System.out.println("Student detail updated successfully!");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteStudent (Connection conn,  int  id) {
+        String deleteSQL = "DELETE FROM students WHERE id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(deleteSQL)) {
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 
 }
