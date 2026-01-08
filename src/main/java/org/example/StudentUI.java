@@ -17,9 +17,10 @@ public class StudentUI {
             System.out.println("n--- Student Management System ---");
             System.out.println("1. Insert Student");
             System.out.println("2. View All Students");
-            System.out.println("3. Update Student Email");
-            System.out.println("4. Delete Student");
-            System.out.println("5. Exit");
+            System.out.println("3. Search Student");
+            System.out.println("4. Update Student Email");
+            System.out.println("5. Delete Student");
+            System.out.println("6. Exit");
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
@@ -62,6 +63,10 @@ public class StudentUI {
                     }
                     break;
                 case 3:
+                    SearchUI searchUI = new SearchUI();
+                    searchUI.SearchUI();
+                    break;
+                case 4:
                     System.out.print("Enter student name update: ");
                     name = scanner.nextLine();
                     System.out.print("Enter new email: ");
@@ -76,7 +81,7 @@ public class StudentUI {
                         e.printStackTrace();
                     }
                     break;
-                case 4:
+                case 5:
                     System.out.print("Enter student ID to delete: ");
                     int idToDelete = scanner.nextInt();
                     scanner.nextLine();
@@ -90,7 +95,7 @@ public class StudentUI {
                         e.printStackTrace();
                     }
                     break;
-                case 5:
+                case 6:
                     running = false;
                     System.out.println("Exiting...");
                     break;
